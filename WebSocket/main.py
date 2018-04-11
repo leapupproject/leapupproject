@@ -19,7 +19,6 @@ def on_error(ws, error):
 
 
 def on_close(ws):
-
     print("### closed ###")
 
 
