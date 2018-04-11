@@ -4,14 +4,10 @@ import json
 import websocket
 data = []
 
-
 def on_message(ws, message):
-    data.append(message)
-    print(data)
-    json.dumps(data)
-    with open('data.json', 'w') as outfile:
-        json.dump({"data" : data}, outfile)
-    #print('Message: {0}'.format(message))
+    #data.append(json.loads(message))
+    d = json.loads(message)
+    data.append(d)
 
 
 def on_error(ws, error):
@@ -19,7 +15,8 @@ def on_error(ws, error):
 
 
 def on_close(ws):
-
+    with open('data.json', 'w') as outfile:
+        json.dump({"data" : data}, outfile)
     print("### closed ###")
 
 
