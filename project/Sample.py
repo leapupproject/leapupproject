@@ -6,7 +6,8 @@
 # between Leap Motion and you, your company or other organization.             #
 ################################################################################
 
-import Leap, sys, _thread, time, csv, datetime, json
+import Leap
+import sys
 from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
 
 
@@ -39,12 +40,11 @@ class SampleListener(Leap.Listener):
         frame = controller.frame()
 
         print("Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (
-              frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures())))
+            frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures())))
 
         # Get hands
         for hand in frame.hands:
 
-            
             handType = "Left hand" if hand.is_left else "Right hand"
 
             print("  %s, id %d, position: %s" % (
@@ -87,7 +87,6 @@ class SampleListener(Leap.Listener):
 
         # Get tools
         for tool in frame.tools:
-
             print("  Tool id: %d, position: %s, direction: %s" % (
                 tool.id, tool.tip_position, tool.direction))
 
@@ -97,7 +96,7 @@ class SampleListener(Leap.Listener):
                 circle = CircleGesture(gesture)
 
                 # Determine clock direction using the angle between the pointable and the circle normal
-                if circle.pointable.direction.angle_to(circle.normal) <= Leap.PI/2:
+                if circle.pointable.direction.angle_to(circle.normal) <= Leap.PI / 2:
                     clockwiseness = "clockwise"
                 else:
                     clockwiseness = "counterclockwise"
@@ -106,29 +105,29 @@ class SampleListener(Leap.Listener):
                 swept_angle = 0
                 if circle.state != Leap.Gesture.STATE_START:
                     previous_update = CircleGesture(controller.frame(1).gesture(circle.id))
-                    swept_angle =  (circle.progress - previous_update.progress) * 2 * Leap.PI
+                    swept_angle = (circle.progress - previous_update.progress) * 2 * Leap.PI
 
                 print("  Circle id: %d, %s, progress: %f, radius: %f, angle: %f degrees, %s" % (
-                        gesture.id, self.state_names[gesture.state],
-                        circle.progress, circle.radius, swept_angle * Leap.RAD_TO_DEG, clockwiseness))
+                    gesture.id, self.state_names[gesture.state],
+                    circle.progress, circle.radius, swept_angle * Leap.RAD_TO_DEG, clockwiseness))
 
             if gesture.type == Leap.Gesture.TYPE_SWIPE:
                 swipe = SwipeGesture(gesture)
                 print("  Swipe id: %d, state: %s, position: %s, direction: %s, speed: %f" % (
-                        gesture.id, self.state_names[gesture.state],
-                        swipe.position, swipe.direction, swipe.speed))
+                    gesture.id, self.state_names[gesture.state],
+                    swipe.position, swipe.direction, swipe.speed))
 
             if gesture.type == Leap.Gesture.TYPE_KEY_TAP:
                 keytap = KeyTapGesture(gesture)
                 print("  Key Tap id: %d, %s, position: %s, direction: %s" % (
-                        gesture.id, self.state_names[gesture.state],
-                        keytap.position, keytap.direction ))
+                    gesture.id, self.state_names[gesture.state],
+                    keytap.position, keytap.direction))
 
             if gesture.type == Leap.Gesture.TYPE_SCREEN_TAP:
                 screentap = ScreenTapGesture(gesture)
                 print("  Screen Tap id: %d, %s, position: %s, direction: %s" % (
-                        gesture.id, self.state_names[gesture.state],
-                        screentap.position, screentap.direction ))
+                    gesture.id, self.state_names[gesture.state],
+                    screentap.position, screentap.direction))
 
         if not (frame.hands.is_empty and frame.gestures().is_empty):
             print("")
@@ -145,7 +144,6 @@ class SampleListener(Leap.Listener):
 
         if state == Leap.Gesture.STATE_INVALID:
             return "STATE_INVALID"
-    
 
 
 def main():
