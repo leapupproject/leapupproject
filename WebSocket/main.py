@@ -2,10 +2,16 @@ import _thread as thread
 import time
 import json
 import websocket
+data = []
 
 
 def on_message(ws, message):
-    print('Message: {0}'.format(message))
+    data.append(message)
+    print(data)
+    json.dumps(data)
+    with open('data.json', 'w') as outfile:
+        json.dump({"data" : data}, outfile)
+    #print('Message: {0}'.format(message))
 
 
 def on_error(ws, error):
@@ -13,6 +19,7 @@ def on_error(ws, error):
 
 
 def on_close(ws):
+
     print("### closed ###")
 
 
@@ -27,3 +34,4 @@ if __name__ == "__main__":
                                 on_close=on_close)
     ws.on_open = on_open
     ws.run_forever()
+
