@@ -6,19 +6,19 @@ data = []
 
 
 def on_message(ws, message):
-    data.append(message)
-    print(data)
+    data.append(json.loads(message))
     json.dumps(data)
-    with open('data.json', 'w') as outfile:
-        json.dump({"data" : data}, outfile)
+
     #print('Message: {0}'.format(message))
-
-
+    
+    
 def on_error(ws, error):
     print(error)
 
 
 def on_close(ws):
+    with open('data.json', 'w') as outfile:
+        json.dump({"data" : data}, outfile)
     print("### closed ###")
 
 
