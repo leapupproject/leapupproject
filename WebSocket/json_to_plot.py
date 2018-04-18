@@ -26,8 +26,8 @@ for second in data['data']:
     except KeyError:
         continue
         
-plt.plot(time, x, 'g')
-plt.plot(time, y, 'b')
-plt.plot(time, z, 'r')
+plt.plot(x, 'g')
+plt.plot(y, 'b')
+plt.plot(z, 'r')
 
 plt.show()
