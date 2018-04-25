@@ -1,7 +1,6 @@
 import pygame
 from leapupproject.WebSocket.WebSocketListener import WebSocketListener
 from multiprocessing import Queue
-import threading
 from leapupproject.WebSocket.Window import Window
 
 
