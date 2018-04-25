@@ -1,7 +1,10 @@
 import pygame
 import threading
+
 from math import floor, log
 import math
+
+#from leapupproject.WebSocket import handClass
 
 WHITE = (189, 195, 199)
 YELLOW = (241, 196, 15)
@@ -22,6 +25,10 @@ class Window(threading.Thread):
         self.running = True
         self.scale = 20
         self.sc = 1.0
+        self.screen_x = 1600
+        self.screen_y = 900
+        #self.hand = handClass.hand()
+
 
     def clear(self):
         self.world.fill(DARKBLUE)
@@ -37,7 +44,7 @@ class Window(threading.Thread):
 
         # render text
 
-        self.display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.display = pygame.display.set_mode((self.screen_x, self.screen_y), pygame.FULLSCREEN)
 
         pygame.display.set_caption("Scrolling Camera")
         clock = pygame.time.Clock()
@@ -62,6 +69,12 @@ class Window(threading.Thread):
                 z = 0
 
             self.drawGraph((x, y, z), "palm")
+
+            #x1 = self.hand[0][0]
+            #y1 = self.hand[0][1]
+            #z1 = self.hand[0][2]
+
+            #self.drawGraph((x1, y1, z1), "tumb")
 
             pygame.display.update()
             for event in ev:
@@ -102,21 +115,21 @@ class Window(threading.Thread):
 
         self.display.blit(self.world, (-self.time + 500, 0))
 
-        self.display.blit(text, (1150, 20))
+        self.display.blit(text, (self.screen_x*0.9, self.screen_y*0.1))
 
-        self.display.blit(xLabel, (1100, 530))
-        pygame.draw.rect(self.display, GREEN, pygame.Rect((1140, 535), (10, 10)))
+        self.display.blit(xLabel, (self.screen_x*0.9, self.screen_y*0.5))
+        pygame.draw.rect(self.display, GREEN, pygame.Rect((self.screen_x*0.9 + 20, self.screen_y*0.5 + 5), (10, 10)))
 
-        self.display.blit(yLabel, (1100, 550))
-        pygame.draw.rect(self.display, RED, pygame.Rect((1140, 555), (10, 10)))
+        self.display.blit(yLabel, (self.screen_x*0.9, self.screen_y*0.52))
+        pygame.draw.rect(self.display, RED, pygame.Rect((self.screen_x*0.9 + 20, self.screen_y*0.52 + 5), (10, 10)))
 
-        self.display.blit(zLabel, (1100, 570))
-        pygame.draw.rect(self.display, YELLOW, pygame.Rect((1140, 575), (10, 10)))
+        self.display.blit(zLabel, (self.screen_x*0.9, self.screen_y*0.54))
+        pygame.draw.rect(self.display, YELLOW, pygame.Rect((self.screen_x*0.9 + 20, self.screen_y*0.54 + 5), (10, 10)))
 
-        self.display.blit(scalaLabel, (1200, 710))
+        self.display.blit(scalaLabel, (self.screen_x*0.9, self.screen_y*0.1+20))
 
         pygame.draw.rect(self.display, BLACK, pygame.Rect((0, 0), (50, 1200)))
-        for x in range(0, 800, int(self.scale * self.sc)):
+        for x in range(0, self.screen_y, int(self.scale * self.sc)):
             pygame.draw.line(self.world, LIGHTBLUE, (0, x), (10000, x), 1)
             pointerLabel = self.myfont2.render(str(x - 300), 2, GREEN)
             if (x != 0):
