@@ -27,6 +27,7 @@ class Window(threading.Thread):
         self.sc = 1.0
         self.screen_x = 1600
         self.screen_y = 900
+        self.name = "palm"
         #self.hand = handClass.hand()
 
 
@@ -58,23 +59,9 @@ class Window(threading.Thread):
         while self.running:
 
             ev = pygame.event.get()
-            data = self.queue.get()
-            if 'hands' in data and len(data["hands"]) > 0:
-                x = data["hands"][0]["palmPosition"][0]
-                y = data["hands"][0]["palmPosition"][1]
-                z = data["hands"][0]["palmPosition"][2]
-            else:
-                x = 0
-                y = 0
-                z = 0
 
-            self.drawGraph((x, y, z), "palm")
+            self.drawfinger(self.name)
 
-            #x1 = self.hand[0][0]
-            #y1 = self.hand[0][1]
-            #z1 = self.hand[0][2]
-
-            #self.drawGraph((x1, y1, z1), "tumb")
 
             pygame.display.update()
             for event in ev:
@@ -87,11 +74,28 @@ class Window(threading.Thread):
                         if (self.sc > 0.5):
                             self.sc -= 0.5
                             self.clear()
-
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_1:
+                            self.name = "thumb"
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_2:
+                            self.name = "pointer"
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_3:
+                            self.name = "middle"
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_4:
+                            self.name = "ring"
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_5:
+                            self.name = "little"
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_6:
+                            self.name = "palm"
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
 
     def join(self, timeout=None):
         self.stopRequest.set()
@@ -136,3 +140,46 @@ class Window(threading.Thread):
                 self.display.blit(pointerLabel, (20, x - 5))
         if (self.time == 10000):
             self.clear()
+
+    def drawfinger(self, finger):
+        self.finger = finger
+
+        if self.finger == "thumb":
+            self.drawer(0)
+        elif self.finger == "pointer":
+            self.drawer(1)
+        elif self.finger == "middle":
+            self.drawer(2)
+        elif self.finger == "ring":
+            self.drawer(3)
+        elif self.finger == "little":
+            self.drawer(4)
+        elif self.finger == "palm":
+            self.palmer()
+
+    def drawer(self, index):
+        data = self.queue.get()
+        if 'pointables' in data and len(data["pointables"]) > 0:
+            x = data['pointables'][index]['tipPosition'][0]
+            y = data['pointables'][index]['tipPosition'][1]
+            z = data['pointables'][index]['tipPosition'][2]
+        else:
+            x = 0
+            y = 0
+            z = 0
+
+
+        self.drawGraph((x, y, z), self.finger)
+
+    def palmer(self):
+        data = self.queue.get()
+        if 'hands' in data and len(data["hands"]) > 0:
+            x = data["hands"][0]["palmPosition"][0]
+            y = data["hands"][0]["palmPosition"][1]
+            z = data["hands"][0]["palmPosition"][2]
+        else:
+            x = 0
+            y = 0
+            z = 0
+
+        self.drawGraph((x, y, z), "palm")
