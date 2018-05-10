@@ -191,4 +191,5 @@ class Window(threading.Thread):
             y = -500
             z = -500
 
+
         self.drawGraph((x,y,z),name)
