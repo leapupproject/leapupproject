@@ -9,6 +9,7 @@ class MainApplication:
     def __init__(self):
         self.queue = Queue(maxsize=1)
 
+
         self.listener = WebSocketListener(self.queue)
         self.listener.daemon = True
 
