@@ -178,6 +178,7 @@ class Window(threading.Thread):
             y = data["hands"][0]["palmPosition"][1]
             z = data["hands"][0]["palmPosition"][2]
         else:
+
             x = 0
             y = 0
             z = 0
