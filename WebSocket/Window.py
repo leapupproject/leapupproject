@@ -25,8 +25,8 @@ class Window(threading.Thread):
         self.running = True
         self.scale = 20
         self.sc = 1.0
-        self.screen_x = 1600
-        self.screen_y = 900
+        self.screen_x = 1000
+        self.screen_y = 700
         self.name = "palm"
         #self.hand = handClass.hand()
 
@@ -60,7 +60,7 @@ class Window(threading.Thread):
 
             ev = pygame.event.get()
 
-            self.drawfinger(self.name)
+
 
 
             pygame.display.update()
@@ -96,6 +96,7 @@ class Window(threading.Thread):
                         self.running = False
                 if event.type == pygame.QUIT:
                     self.running = False
+            self.drawer(self.name)
 
     def join(self, timeout=None):
         self.stopRequest.set()
@@ -141,45 +142,54 @@ class Window(threading.Thread):
         if (self.time == 10000):
             self.clear()
 
-    def drawfinger(self, finger):
-        self.finger = finger
 
-        if self.finger == "thumb":
-            self.drawer(0)
-        elif self.finger == "pointer":
-            self.drawer(1)
-        elif self.finger == "middle":
-            self.drawer(2)
-        elif self.finger == "ring":
-            self.drawer(3)
-        elif self.finger == "little":
-            self.drawer(4)
-        elif self.finger == "palm":
-            self.palmer()
 
-    def drawer(self, index):
-        data = self.queue.get()
-        if 'pointables' in data and len(data["pointables"]) > 0:
-            x = data['pointables'][index]['tipPosition'][0]
-            y = data['pointables'][index]['tipPosition'][1]
-            z = data['pointables'][index]['tipPosition'][2]
+    def drawer(self, name):
+        x=-5000
+        y=-5000
+        z=-5000
+        if not self.queue.empty():
+
+            data = self.queue.get()
+            if 'hands' in data and len(data["hands"]) > 0:
+                if 'pointables' in data and len(data["pointables"]) > 4:
+                    if(name == "thumb"):
+
+                        x = data['pointables'][0]['tipPosition'][0]
+                        y = data['pointables'][0]['tipPosition'][1]
+                        z = data['pointables'][0]['tipPosition'][2]
+
+                    if (name == "pointer"):
+
+                        x = data['pointables'][1]['tipPosition'][0]
+                        y = data['pointables'][1]['tipPosition'][1]
+                        z = data['pointables'][1]['tipPosition'][2]
+
+                    if (name == "middle"):
+
+                        x = data['pointables'][2]['tipPosition'][0]
+                        y = data['pointables'][2]['tipPosition'][1]
+                        z = data['pointables'][2]['tipPosition'][2]
+
+                    if (name == "ring"):
+
+                        x = data['pointables'][3]['tipPosition'][0]
+                        y = data['pointables'][3]['tipPosition'][1]
+                        z = data['pointables'][3]['tipPosition'][2]
+
+                    if (name == "little"):
+                        x = data['pointables'][4]['tipPosition'][0]
+                        y = data['pointables'][4]['tipPosition'][1]
+                        z = data['pointables'][4]['tipPosition'][2]
+
+                if (name == "palm"):
+                    x = data["hands"][0]["palmPosition"][0]
+                    y = data["hands"][0]["palmPosition"][1]
+                    z = data["hands"][0]["palmPosition"][2]
         else:
-            x = 0
-            y = 0
-            z = 0
+            x = -500
+            y = -500
+            z = -500
 
 
-        self.drawGraph((x, y, z), self.finger)
-
-    def palmer(self):
-        data = self.queue.get()
-        if 'hands' in data and len(data["hands"]) > 0:
-            x = data["hands"][0]["palmPosition"][0]
-            y = data["hands"][0]["palmPosition"][1]
-            z = data["hands"][0]["palmPosition"][2]
-        else:
-            x = 0
-            y = 0
-            z = 0
-
-        self.drawGraph((x, y, z), "palm")
+        self.drawGraph((x,y,z),name)
