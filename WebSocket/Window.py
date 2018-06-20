@@ -25,8 +25,8 @@ class Window(threading.Thread):
         self.running = True
         self.scale = 20
         self.sc = 1.0
-        self.screen_x = 800
-        self.screen_y = 600
+        self.screen_x = 1000
+        self.screen_y = 700
         self.name = "palm"
         #self.hand = handClass.hand()
 
