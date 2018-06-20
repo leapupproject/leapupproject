@@ -18,7 +18,6 @@ class Analysis(threading.Thread):
 
     def run(self):
         while True:
-            #print("dsaD")
             if not self.queue.empty():
 
                 data = self.queue.get()
