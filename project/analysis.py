@@ -9,15 +9,18 @@ import math
 
 
 class Analysis(threading.Thread):
-    def __init__(self,queue):
+    def __init__(self,queue, callback ):
         super(Analysis, self).__init__()
         self.queue = queue
         self.calibrate = False
         self.exercise = False
         self.lenstart = []
+        self.callback = callback
+
 
     def run(self):
         while True:
+
             #print("dsaD")
             if not self.queue.empty():
 
@@ -108,6 +111,7 @@ class Analysis(threading.Thread):
                                     #kalibracja true
                                     print("KALIBRACJA DZIALA !!! ")
                                     self.calibrate= True
+                                    self.callback("Calibrate")
 
 
                         def comparelen(exercise,calibrate):
@@ -116,13 +120,14 @@ class Analysis(threading.Thread):
                             if(self.exercise == False and self.calibrate == True):
                                 if(lenpt - self.lenstart[0]>27 and lenmp - self.lenstart[1]>14 and lenrm - self.lenstart[2]>12 and lenlr - self.lenstart[3]>10):
                                     print("CWICZENIE WYKONANE PRAWIDLOWO !!! ")
+                                    callable("Done")
                                     # print("Pierwsza odleglosc: " + str(lenpt - self.lenstart[0]))
                                     # print("Druga odleglosc: " + str(lenmp - self.lenstart[1]))
                                     # print("Trzecia odleglosc: " + str(lenrm - self.lenstart[2]))
                                     # print("Czwarta odleglosc: " + str(lenlr - self.lenstart[3]))
-                                    if(lenpt - self.lenstart[0] < 10 and lenmp - self.lenstart[1] < 12 and lenrm - self.lenstart[2] < 12 and lenlr - self.lenstart[3] < 12):
-                                        print("CWICZENIE WYKONANE PRAWIDLOWO 22222!!! ")
-                                        self.exercise = True
+                                    # if(lenpt - self.lenstart[0] < 10 and lenmp - self.lenstart[1] < 12 and lenrm - self.lenstart[2] < 12 and lenlr - self.lenstart[3] < 12):
+                                    #     print("CWICZENIE WYKONANE PRAWIDLOWO 22222!!! ")
+                                    self.exercise = True
 
                         # print("kciuk wskazujacy " + str(kattp))
                         # print("wksazujacy srodkowy " +str(katpm))
