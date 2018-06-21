@@ -92,6 +92,7 @@ class Analysis(threading.Thread):
                         # if(tp>0,6 and tp<0,8 and pm>0,4 and pm<0,6 and mr>0,3 and mr<0,5 and rl>0,4 and rl<0,6):
                         #     print("stan koncowy")
 
+                        #KALIBRACJA
                         def savelen(calibrate, lenstart):
                             self.calibrate = calibrate
                             self.lenstart = lenstart
