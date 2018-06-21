@@ -111,7 +111,7 @@ class Analysis(threading.Thread):
                                     self.state = "calibrate"
                                     self.calibrate= True
 
-                        #CWICZENIE
+                        #CWICZENIE !
                         def comparelen(exercise,calibrate):
                             self.calibrate = calibrate
                             self.exercise = exercise
