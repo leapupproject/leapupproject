@@ -9,18 +9,22 @@ import math
 
 
 class Analysis(threading.Thread):
-    def __init__(self,queue, callback ):
+    def __init__(self, queue, msgSender, msgReciver):
         super(Analysis, self).__init__()
         self.queue = queue
+        self.command = msgReciver()
         self.calibrate = False
         self.exercise = False
         self.lenstart = []
-        self.callback = callback
+        self.msgSender = msgSender
+        self.msgReciver = msgReciver
 
 
     def run(self):
         while True:
-
+            self.command = self.msgReciver()
+            if(self.command is not "null"):
+                print(self.command)
             #print("dsaD")
             if not self.queue.empty():
 
@@ -111,7 +115,7 @@ class Analysis(threading.Thread):
                                     #kalibracja true
                                     print("KALIBRACJA DZIALA !!! ")
                                     self.calibrate= True
-                                    self.callback("Calibrate")
+                                    self.msgSender("Calibrate")
 
 
                         def comparelen(exercise,calibrate):
