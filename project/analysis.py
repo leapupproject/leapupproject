@@ -98,7 +98,7 @@ class Analysis(threading.Thread):
 
                             if(self.calibrate==False):
                                 if(lenpt>60 and lenpt<70 and lenmp>20 and lenmp<30 and lenrm>20 and lenrm<30 and lenlr>27 and lenlr<32):
-                                    #dodanie do listy
+                                    ##dodanie do listy
                                     self.lenstart.append(lenpt)
                                     self.lenstart.append(lenmp)
                                     self.lenstart.append(lenrm)
