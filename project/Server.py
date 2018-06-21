@@ -13,7 +13,6 @@ class WebsocketBroadcasterHandler(WebSocket):
         print(self.data)
 
 
-
     def handleConnected(self):
         if debug:
             print(self.address, 'connected')
