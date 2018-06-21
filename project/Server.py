@@ -10,7 +10,6 @@ debug = True
 class WebsocketBroadcasterHandler(WebSocket):
 
     def handleMessage(self):
-        print("Message")
         print(self.data)
 
 
