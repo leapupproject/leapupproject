@@ -66,8 +66,6 @@ class BroadcasterWebsocketServer(Thread):
                     client.sendq.appendleft((opcode, remaining))
                     break
     def serverMessage(self,msg):
-        print ('sending server message')
-        #print self.clients
         for client in clients:
             client.sendMessage(msg)
     def getMessage(self):
