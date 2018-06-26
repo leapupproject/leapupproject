@@ -16,7 +16,7 @@ class MainApplication:
         self.server = BroadcasterWebsocketServer('', 8000, True)
         # self.window = Window(self.queue)
         # self.window.daemon = True
-        self.a = Analysis(self.queue, self.server.serverMessage)
+        self.a = Analysis(self.queue, self.server.serverMessage, self.server.getMessage)
         self.a.daemon = True
 
     def mainloop(self):

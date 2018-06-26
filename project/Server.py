@@ -2,7 +2,7 @@ from threading import Thread
 from time import sleep
 from SimpleWebSocketServer import WebSocket, SimpleWebSocketServer
 
-
+command = "null"
 clients = []
 debug = True
 
@@ -10,8 +10,8 @@ debug = True
 class WebsocketBroadcasterHandler(WebSocket):
 
     def handleMessage(self):
-        print(self.data)
-
+        global command
+        command = self.data
 
     def handleConnected(self):
         if debug:
@@ -70,3 +70,7 @@ class BroadcasterWebsocketServer(Thread):
         #print self.clients
         for client in clients:
             client.sendMessage(msg)
+    def getMessage(self):
+        return command
+
+
