@@ -24,11 +24,8 @@ class Analysis(threading.Thread):
     def run(self):
         while True:
             self.command = self.msgReciver()
-            if(self.command is not "null"):
-                print(self.command)
             #print("dsaD")
             if not self.queue.empty():
-
                 data = self.queue.get()
                 if 'hands' in data and len(data["hands"]) > 0:
                     if 'pointables' in data and len(data["pointables"]) > 4:
@@ -116,7 +113,7 @@ class Analysis(threading.Thread):
                                     print(lenpt - lenstart[0])
                                     #kalibracja true
                                     print("KALIBRACJA DZIALA !!! ")
-                                    self.state = "calibrate"
+                                    self.state = "calibrate-done"
                                     self.calibrate= True
                                     self.msgSender("Calibrate")
 
@@ -127,8 +124,8 @@ class Analysis(threading.Thread):
                             if(self.exercise == False and self.calibrate == True):
                                 if(lenpt - self.lenstart[0]>27 and lenmp - self.lenstart[1]>14 and lenrm - self.lenstart[2]>12 and lenlr - self.lenstart[3]>10):
                                     print("CWICZENIE WYKONANE PRAWIDLOWO !!! ")
-                                    self.state = "excercise-ok"
-                                    callable("Done")
+                                    self.state = "excercise-done"
+                                    self.msgSender("Done")
                                     # print("Pierwsza odleglosc: " + str(lenpt - self.lenstart[0]))
                                     # print("Druga odleglosc: " + str(lenmp - self.lenstart[1]))
                                     # print("Trzecia odleglosc: " + str(lenrm - self.lenstart[2]))
@@ -172,8 +169,15 @@ class Analysis(threading.Thread):
                         # print("serdeczny " + str(tipYring))
                         # print("maly " + str(tipYlittle))
 
-                        savelen(self.calibrate,self.lenstart)
-                        comparelen(self.exercise, self.calibrate)
+                        if(self.command=="Calibrate"):
+                            restart_calibrate()
+                            savelen(self.calibrate,self.lenstart)
+                            self.command = "null"
+
+                        if(self.command == "exercise"):
+                            self.command = "null"
+                            restart_excercise()
+                            comparelen(self.exercise, self.calibrate)
 
     def join(self, timeout=None):
 
