@@ -3,7 +3,7 @@ import threading
 
 
 
-from leapupproject.WebSocket.WebSocketListener import WebSocketListener
+from WebSocket.WebSocketListener import WebSocketListener
 from multiprocessing import Queue
 import math
 
