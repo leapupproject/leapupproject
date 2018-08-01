@@ -13,5 +13,5 @@ python-dateutil==2.7.3
 pytz==2018.4	
 setuptools==39.0.1	
 six==1.11.0	
-websocke==	0.2.1	
+websocke==0.2.1	
 websocket-client==0.48.0	
