@@ -3,41 +3,32 @@ Leapupproject assumes support in recovering a person with a hand injury.
 Thanks to the leap motion sensor, the person is able to correctly perform the injured hand exercise. 
 
 # Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The files in the repository are just part of the project. To get the rest of the files, contact the authors of the project.
 
 # Prerequisites
-What things you need to install the software and how to install them
+All you need to run our program is:  
+PC or laptop with Windows 10  
+Leap Motion sensor  
+Python 3.6  
+Our files
 
-Give examples
 # Installing
-A step by step series of examples that tell you how to get a development env running
+ 1.To install our software, download the repository and contact us for the rest of the files.  
+ 2.Create a new folder on your computer so that it contains a downloaded repository, a folder with downloaded items from us and a file start.bat  
+ 3.Download Python 3.6 and install   
+ 4.Use "pip install -r requirements.txt" to install the necessary libraries.  
+ 5.Connect Leap Motion to your computer  
+ 6.Run the start.bat file  
+ 
 
-Say what the step will be
-
-Give the example
-And repeat
-
-until finished
-End with an example of getting some data out of the system or using it for a little demo
-
-# Running the tests
-Explain how to run the automated tests for this system
-
-Break down into end to end tests
-Explain what these tests test and why
-
-Give an example
-And coding style tests
-Explain what these tests test and why
-
-Give an example
 # Deployment
 Development happens on github (https://github.com/leapupproject/leapupproject/).
 
 # Built With
-Python 3.6
-Unity
-LeapMotion SDK
+Python 3.6, 
+Unity3D, 
+Unity core assets 4.4,
+LeapMotion SDK,
 
 # Authors
 Bartosz Cypcar,
