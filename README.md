@@ -25,17 +25,17 @@ Our files
 Development happens on github (https://github.com/leapupproject/leapupproject/).
 
 # Built With
-Python 3.6, 
-Unity3D, 
-Unity core assets 4.4,
-LeapMotion SDK,
+Python 3.6   
+Unity3D  
+Unity core assets 4.4  
+LeapMotion SDK  
 
 # Authors
-Bartosz Cypcar,
-Przemysław Gadula,
-Jakub Dojutrek,
-Michał Grządziel,
-Kamil Gancarczyk,
+Bartosz Cypcar  
+Przemysław Gadula  
+Jakub Dojutrek  
+Michał Grządziel  
+Kamil Gancarczyk  
 
 # License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleapupproject%2Fleapupproject.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleapupproject%2Fleapupproject?ref=badge_large)
